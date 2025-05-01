@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Görsel Üretimi + Önizleme</title>
+  <style>
+    body { background: #111; color: #fff; font-family: sans-serif; padding: 2rem; }
+    input, button, textarea { padding: 0.5rem; margin: 0.5rem 0; width: 100%; max-width: 500px; }
+    button { background: #ff69b4; border: none; color: white; font-weight: bold; cursor: pointer; }
+    .preview, .demo { margin-top: 1rem; max-width: 100%; border: 2px solid #444; display: block; }
+  </style>
+</head>
+<body>
+  <h2>🎨 AI Görsel Üretimi</h2>
+  <label>Prompt:</label>
+  <textarea id="prompt" rows="4">beautiful female, hrbs, nude, realistic lighting</textarea>
+
+  <label>Ekstra Özellikler:</label><br>
+  <label><input type="checkbox" value="hrbx"> Yoğun pubic hair (hrbx)</label><br>
+  <label><input type="checkbox" value="hrbz"> Vücut tipi çeşitliliği (hrbz)</label><br>
+
+  <button onclick="generateImage()">Görsel Üret</button>
+  <div id="result">
+    <img id="output" class="preview">
+  </div>
+
+  <h3>🧪 Demo Grafik Önizleme</h3>
+  <img class="demo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAADQ7M+0AAAKUUlEQVR4nO3dQW7rNhBF0XMMkD1F1+NgyNJ5PqtGmfW5D7bSH78AfC2ZscAUGzX3V6AAAAAAAAAAAAAAAAAAAAAAAAAAB8lhq08U6v3UvbnS0eOtnHnZ38bFy+N0aM1xKZ38SzzdbXnmv7UrpVfj7Xs5cV8vhf+6+Wh97sLK7l3YjL9SO37zJu91oZNyHn29z0/5v93Pm+/dtl2fK6eqFqOZ3rStYbq7pNPrYZLbu+ybr7MTvLPb3r1NZWn6DmnZXrypQPYbEXk1ZXk++V3B9dTHcda/M+t51d1K48ZErk1D7y2XV71XKuvrffmZaF8OuqOpnc31Uc+bl5q9qnF4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+cf9A04iGGs23TVQAAAAASUVORK5CYII=" alt="Demo Görsel">
+
+  <script>
+    function generateImage() {
+      const basePrompt = document.getElementById("prompt").value;
+      const checks = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(el => el.value);
+      const fullPrompt = basePrompt + ', ' + checks.join(', ');
+
+      document.getElementById("output").src = "https://via.placeholder.com/512x768?text=Bekle...";
+
+      setTimeout(() => {
+        document.getElementById("output").src = "https://via.placeholder.com/512x768?text=Prompt: " + encodeURIComponent(fullPrompt);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
